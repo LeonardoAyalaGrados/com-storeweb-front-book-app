@@ -1,0 +1,99 @@
+<div class="container">
+  <h1>Editar usuario</h1>
+  <!-- <div class="mt-5 alert alert-danger">
+    {{form.value|json}}
+  </div> -->
+  <form class="mt-5" (ngSubmit)="editUser()" [formGroup]="myForm">
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label>FirstName</mat-label>
+      <input matInput id="firstName" type="text" placeholder="firstName" formControlName="firstName"/>
+      <mat-error>
+        <ng-container *ngIf="controlHasError('firstName', 'required')">
+          Este campo es obligatorio
+      </ng-container>
+      <ng-container *ngIf="controlHasError('firstName', 'minlength')">
+          Debe tener al menos 3 caracteres
+      </ng-container>
+      <ng-container *ngIf="controlHasError('firstName', 'maxlength')">
+          Debe tener 100 caracteres como máximo
+      </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label>LastName</mat-label>
+      <input matInput id="lastName" type="text" placeholder="lastName" formControlName="lastName" />
+      <mat-error>
+        <ng-container *ngIf="controlHasError('lastName', 'required')">
+          Este campo es obligatorio
+      </ng-container>
+      <ng-container *ngIf="controlHasError('lastName', 'minlength')">
+        Debe tener al menos 3 caracteres
+    </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput id="password" type="text" placeholder="password" formControlName="password" />
+      <mat-error>
+        <ng-container *ngIf="controlHasError('password', 'required')">
+          Este campo es obligatorio
+      </ng-container>
+      <ng-container *ngIf="controlHasError('lastName', 'minlength')">
+        Debe tener al menos 6 caracteres
+    </ng-container>
+      </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mb-2 w-100" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" type="text" placeholder="email" formControlName="email" />
+          <mat-error>
+            <ng-container *ngIf="controlHasError('email', 'required')">
+              Este campo es obligatorio
+          </ng-container>
+          <ng-container *ngIf="controlHasError('email', 'email')">
+            example admin@hotmail.com
+        </ng-container>
+          </mat-error>
+            </mat-form-field>
+
+
+
+            <!-- <mat-form-field class="mb-2 w-100" appearance="outline">
+              <mat-label>ROL</mat-label>
+              <input matInput id="role" type="text" placeholder="role" formControlName="role" />
+              <mat-error>
+                <ng-container *ngIf="controlHasError('role', 'required')">
+                  Este campo es obligatorio
+              </ng-container>
+              </mat-error>
+            </mat-form-field> -->
+
+        <mat-form-field class="mb-2 w-100" appearance="outline">
+          <mat-label>Rol</mat-label>
+          <mat-select placeholder="role" formControlName="role">
+            <mat-option value="USER">USER</mat-option>
+            <mat-option value="ADMIN" >ADMIN</mat-option>
+          </mat-select> 
+          
+          <mat-error>
+            <ng-container *ngIf="controlHasError('lastName', 'required')">
+              Este campo es obligatorio
+          </ng-container>
+          </mat-error>
+        </mat-form-field>
+
+    <div class="text-end">
+      <button mat-button routerLink="/admin/user/list">Cancelar</button>
+      <button mat-raised-button color="primary" class="ms-2" [disabled]="myForm.invalid">Editar usuario</button>
+  </div>
+
+    <!-- <div class="text-end">
+      <button class="btn btn-light" routerLink="/admin/book">Cancelar</button>
+      <button type="submit" class="btn btn-primary ms-2" [disabled]="myForm.invalid">Crear libro</button>
+    </div> -->
+  </form>
+</div>

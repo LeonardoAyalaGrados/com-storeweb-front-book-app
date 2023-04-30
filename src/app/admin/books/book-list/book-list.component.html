@@ -1,0 +1,57 @@
+<div class="container">
+  <ng-container *ngIf="bookPage">
+    <h1>Lista de libros</h1>
+  
+    <div class="text-end">
+        <button mat-raised-button color="primary" routerLink="/admin/book/new">
+            Nuevo libro
+        </button>
+    </div>
+  
+    <table mat-table [dataSource]="bookPage.content">
+  
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Libro </th>
+            <td mat-cell *matCellDef="let book">
+                <div class="d-flex gap-2">
+                    <img [src]="book.coverPath | apiImg" alt="" class="mw-96px">
+  
+                    <div>
+                        <div class="fw-bold"> {{ book.title }} </div>
+                        <p> {{ book.desc }} </p>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Precio </th>
+            <td mat-cell *matCellDef="let book"> {{ book.price | currency }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> F. creación </th>
+            <td mat-cell *matCellDef="let book"> {{ book.createdAt | date:'dd/MM/yyyy h:m a' }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let book" class="text-end">
+                <button mat-icon-button (click)="put(book.id)" color="primary" matTooltip="Editar libro">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="ms-2" (click)="delete(book.id)" color="warn" matTooltip="Eliminar libro">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements"
+        [length]="bookPage.totalElements" [pageSize]="bookPage.size" (page)="paginateBooks($event)">
+    </mat-paginator>
+  </ng-container>
+</div>

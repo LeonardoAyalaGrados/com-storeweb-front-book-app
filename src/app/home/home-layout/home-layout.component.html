@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+    <span>Mi tienda online</span>
+    <button mat-button routerLink="/"  class="ms-3">Inicio</button>
+    <button mat-button routerLink="book"  class="ms-3"> Libros</button>
+    <button mat-button routerLink="/admin/book/list"  class="ms-3">Administrar</button>
+    <span class="spacer"></span>
+
+    <button mat-icon-button [mat-menu-trigger-for]="cartMenu" class="me-2" [matBadge]="cartItems.length">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+
+    <mat-menu #cartMenu="matMenu">
+      <ng-container *ngIf="cartItems.length;else cartIsEmptyButton">
+        <button mat-menu-item *ngFor="let item of cartItems">
+            <div class="d-flex gap-2 py-2">
+                <img [src]="item.coverPath | apiImg" alt="" class="mw-96px">
+
+                <div>
+                    <div class="fw-bold"> {{ item.title }} </div>
+                    <p> {{ item.price| currency }} </p>
+                    
+                </div>
+               
+            </div>
+        </button>
+        <button mat-menu-item class="justify-content-center"  routerLink="/cart">
+            Ir a carrito
+        </button>
+      </ng-container>
+       <ng-template  #cartIsEmptyButton>
+        <button mat-menu-item class="justify-content-center">
+            El carrito esta vacío
+        </button>
+       </ng-template>
+    </mat-menu>
+
+    <button mat-button [mat-menu-trigger-for]="userMenu">
+        <mat-icon>account_circle</mat-icon> Leonardo
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>logout</mat-icon>Cerrar Sesión
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+    <router-outlet></router-outlet>
